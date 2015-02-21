@@ -6,7 +6,7 @@ This app is a quick and simple example of doing file uploads using sails and ang
 
 Sails uses Skipper to handle it's file uploads. Skipper is an express middleware that can be used in non-sails express projects too. It is a drop in replacement for body-parser or multer.
 
-Skipper can also upload directly to S3 or other file services. In theory it could upload directly to cloudinary.
+Skipper can also upload directly to S3 or other file services.
 
 ####Setup
 
