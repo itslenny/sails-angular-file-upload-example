@@ -34,34 +34,15 @@ The angular part of the equation is fairly simple and is essentially the same as
 
 ####Getting file field value
 
-Getting form data in angular is simple using `ng-model`. Unfortunatly,  file fields do not support `ng-model` so instead we have to use a standard javascript onchange listener to watch for changes in the file field.
+Usually, it's simple to get the value of a form element using `ng-model`, but file fields are the exception as they do not support `ng-model`.
+
+To overcome this we can do something like what is outlined in this [stack overflow answer](http://stackoverflow.com/a/17923521/3068157).
 
 
-####Alternative method (getting file data)
+OR use a directive such as [angular-bootstrap-file-field](https://github.com/itslenny/angular-bootstrap-file-field).
 
-The `addEventListener` method is a fairly "non-angular" solution, but it works well and requires minimal code. One alternative would be to create a directive to add ng-model like functionality to file upload fields.
+As long as we can get the file element in our `$scope` we're good to go.
 
-**Directive**
-
-```javascript
-app.directive('fileModel', function() {
-  return {
-    restrict: 'A',
-    link: function (scope, element, attrs) {
-      var onChangeFunc = scope.$eval(attrs.customOnChange);
-      element.bind('change', onChangeFunc);
-    }
-  };
-});
-```
-
-**Usage**
-
-```html
-<input type="file" file-model="uploadFile">
-```
-
-This would bind the file to the `$scope.uploadFile` in the controller.
 
 ####Sending data to the backend
 
@@ -71,7 +52,7 @@ Files must be sent as [multi-part form data](http://stackoverflow.com/a/4526286/
 
 ```javascript
 var fd = new FormData();
-fd.append('nacho', fileToUpload);
+fd.append('nacho', $scope.fileToUpload);
 
 $http.post('/api/burrito', fd, {
     transformRequest: angular.identity,
@@ -86,11 +67,8 @@ $http.post('/api/burrito', fd, {
 }); 
 ```
 
-####3rd Party alternatives
-
-There are many upload directives made for angular that make this whole process a little cleaner and easier. However, many of them are kinda overkill for a simple file upload.
-
-* [angular-file-upload](https://github.com/nervgh/angular-file-upload) is A great directive that handles queuing multiple file uploads with progress, but is a bit much if you only need to upload a single file.
+####Multiple file upload
 
 
-* [angular-boostrap-file-field](https://github.com/itslenny/angular-bootstrap-file-field) just a basic file upload field for angular/bootstrap. Uses a bootstrap button instead of the typical ugly upload field.
+
+[angular-file-upload](https://github.com/nervgh/angular-file-upload) is A great directive that handles queuing multiple file uploads with progress, but is a bit much if you only need to upload a single file.
