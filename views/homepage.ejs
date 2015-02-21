@@ -1,0 +1,17 @@
+<div class="container" ng-app="ChorizoApp">
+    <div class="row" ng-controller="TortillaCtrl">
+        <h1>Upload a file</h1>
+        <div class="col-sm-4">
+            <form ng-submit="uploadFile()" class="form">
+                <input type="text" placeholder="title" ng-model="titleText" class="form-control" required>
+                <br><br>
+                <file-field ng-model="uploadThis" class="btn" ng-class="{'btn-success':uploadThis}" preview="uploadPreview">Select file</file-field>
+                <br><br>
+                <input type="submit">
+            </form>
+        </div>
+        <div class="col-sm-4">
+            <img ng-src="{{uploadPreview}}" ng-if="uploadPreview" class="img-responsive" >   
+        </div>
+    </div>
+</div>
